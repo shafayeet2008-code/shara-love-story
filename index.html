@@ -1,0 +1,324 @@
+
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>A Little Story for Shara ❤️</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+Bengali:wght@400;600;700&family=Poppins:wght@300;400;600&display=swap');
+
+*{box-sizing:border-box}
+body{
+ margin:0;min-height:100vh;color:#783d60;
+ font-family:'Noto Serif Bengali',serif;
+ background:linear-gradient(135deg,#ffe0ec,#fff4e8,#e9e1ff);
+ overflow-x:hidden
+}
+#fx{position:fixed;inset:0;pointer-events:none;overflow:hidden}
+.f{
+ position:absolute;bottom:-40px;animation:float 10s linear infinite;
+ opacity:.6
+}
+@keyframes float{
+ 0%{transform:translateY(0) rotate(0);opacity:0}
+ 15%{opacity:.7}
+ 100%{transform:translateY(-110vh) rotate(360deg);opacity:0}
+}
+.wrapper{
+ min-height:100vh;display:flex;align-items:center;
+ justify-content:center;padding:20px
+}
+.card{
+ width:min(780px,100%);padding:35px 25px;
+ background:#ffffffa8;backdrop-filter:blur(18px);
+ border:1px solid #ffffff;border-radius:30px;
+ box-shadow:0 15px 60px #c77ca633;text-align:center;
+ animation:appear .5s
+}
+@keyframes appear{
+ from{opacity:0;transform:translateY(20px)}
+ to{opacity:1;transform:translateY(0)}
+}
+h1{font-size:clamp(1.6rem,5vw,2.6rem);color:#b14d83;line-height:1.7}
+p{font-size:1.12rem;line-height:2}
+.poem{white-space:pre-line;line-height:2.4;font-size:1.15rem}
+button{
+ border:none;padding:13px 22px;border-radius:50px;
+ cursor:pointer;font-size:1rem;margin:8px;
+ color:white;background:linear-gradient(135deg,#ff7eae,#b79aff);
+ box-shadow:0 7px 20px #bd6b9c33;transition:.25s
+}
+button:hover{transform:scale(1.05)}
+.secondary{background:#fff;color:#a35781}
+.buttons{margin-top:25px}
+.top{
+ position:relative;display:flex;gap:10px;align-items:center;
+ margin-bottom:15px
+}
+.progress{height:5px;background:#ffffffaa;flex:1;border-radius:10px}
+.progress div{height:5px;background:#ff80b4;border-radius:10px}
+.counter{font-family:Poppins;font-size:12px}
+.music{padding:10px 14px;font-size:13px}
+.heart{animation:beat 1s infinite}
+@keyframes beat{50%{transform:scale(1.13)}}
+footer{font-size:12px;margin-top:25px;opacity:.6}
+</style>
+</head>
+
+<body>
+<div id="fx"></div>
+
+<div class="wrapper">
+<div style="width:min(780px,100%)">
+
+<div class="top">
+<span class="counter" id="counter">01/13</span>
+<div class="progress"><div id="progress" style="width:7.7%"></div></div>
+<button class="music secondary" id="musicBtn">♫ Music ON</button>
+</div>
+
+<div class="card" id="card"></div>
+
+</div>
+</div>
+
+<script>
+const chapters=[
+{
+title:"তোমার জন্য কিছু কথা... 💗",
+body:"কিছু কথা মুখে বলা কঠিন। তাই ভাবলাম, তোমার জন্য ছোট্ট একটা গল্প সাজিয়ে রাখি।",
+button:"Let's Begin ❤️"
+},
+{
+title:"যেদিন প্রথম তোমাকে দেখেছিলাম...",
+body:"স্কুলের সেই দিনটা হয়তো সবার কাছে সাধারণ ছিল। কিন্তু তোমাকে দেখার পর দিনটার মধ্যে অদ্ভুত একটা সুন্দর মুহূর্ত যোগ হয়েছিল। কখনো কখনো একটি ছোট্ট দেখা, একটা সাধারণ দিনকেও বিশেষ করে তুলতে পারে।"
+},
+{
+title:"তোমার হাসিটা...",
+body:"তোমার হাসিতে এমন একটা কোমলতা আছে, যা মন খারাপের দিনেও একটু আলো এনে দিতে পারে। তোমার কথা বলার ভঙ্গি, তোমার ছোট ছোট অভ্যাস আর নিজের মতো করে থাকা—এসবই তোমাকে আলাদা করে তোলে।"
+},
+{
+title:"শুধু তোমার জন্য একটি কবিতা",
+body:`তোমার হাসির রঙে ভোরের আকাশ আঁকি,
+নীরব দিনের পাতায় তোমার কথাই রাখি।
+হাওয়ার মতো মৃদু কোনো অনুভূতি এসে,
+মনটা আজও থামে তোমার নামের শেষে।
+
+চাঁদের আলো যেমন নদীর বুকে পড়ে,
+তেমনই কিছু স্বপ্ন জমে হৃদয় জুড়ে।
+কোনো দাবি নয়, শুধু এইটুকু চাওয়া—
+তোমার দিনগুলো সুন্দর হোক, ভালোবাসায় ছাওয়া।`,
+poem:true
+},
+{
+title:"কখন যে এতটা ভালো লেগে গেলে...",
+body:"কখন যে তোমাকে এতটা ভালো লাগতে শুরু করেছে, সেটা ঠিক বলতে পারি না। হয়তো কোনো নির্দিষ্ট মুহূর্ত ছিল না—ছিল অনেক ছোট ছোট মুহূর্তের যোগফল। তোমাকে জানার ইচ্ছা, তোমার কথা শুনতে ভালো লাগা, আর তোমার ভালো থাকাটা কামনা করা—এসব অনুভূতি ধীরে ধীরে বেড়েছে।"
+},
+{
+title:"এই গানটা তোমার জন্য 🎶",
+body:"এই ছোট্ট সুরটা আমাদের গল্পের সঙ্গে থাকুক। চাইলে Music বোতাম দিয়ে সুর বন্ধ বা চালু করতে পারো।",
+sub:"A little melody, just for this story."
+},
+{
+title:"যদি একদিন একসাথে হাঁটতে পারতাম...",
+body:"কল্পনা করি, কোনো বিকেলে পাশাপাশি হাঁটছি—কথা হচ্ছে কত সাধারণ বিষয় নিয়ে, মাঝেমধ্যে হাসছি, হয়তো চুপচাপও থাকছি। কোনো তাড়াহুড়ো নেই। এমন ছোট ছোট মুহূর্তই হয়তো একদিন সবচেয়ে সুন্দর স্মৃতি হয়ে উঠতে পারে।"
+},
+{
+title:"একটা সত্যি কথা বলি?",
+body:"Shara, আমি তোমাকে পছন্দ করি। তোমার সঙ্গে কথা বলতে, তোমাকে জানতে এবং তোমার হাসিটা দেখতে আমার সত্যিই ভালো লাগে।"
+},
+{
+title:"তোমার অনুভূতিই সবচেয়ে গুরুত্বপূর্ণ",
+body:"এই কথাগুলো বলার পর তোমার ওপর কোনো চাপ দিতে চাই না। তুমি যা অনুভব করো, সেটাই সত্যি এবং সেটাই গুরুত্বপূর্ণ। তোমার সিদ্ধান্ত যাই হোক, সেটাকে সম্মান করব। তোমাকে কোনো উত্তর দিতে বাধ্য করা আমার উদ্দেশ্য নয়।"
+},
+{
+title:"আমার ছোট্ট কিছু ইচ্ছা",
+body:"একটু কথা বলা, ছোট ছোট গল্প ভাগ করে নেওয়া, একে অন্যকে হাসানো, মন দিয়ে বোঝার চেষ্টা করা আর সময়ের সঙ্গে সুন্দর কিছু স্মৃতি তৈরি করা। খুব বড় কোনো স্বপ্ন নয়—শুধু আন্তরিকতা আর সম্মান দিয়ে এগোনো।"
+},
+{
+title:"এতদূর আসার জন্য ধন্যবাদ ❤️",
+body:"আমার লেখা কথাগুলো সময় নিয়ে পড়ার জন্য ধন্যবাদ। এই ছোট্ট ওয়েবসাইটটা তোমার জন্য তৈরি করেছি, তাই তোমার সময় আর মনোযোগ আমার কাছে অনেক মূল্যবান।"
+},
+{
+title:"শেষে শুধু একটা কথাই বলব...",
+body:"অনুভূতিগুলো সুন্দর হয় যখন সেগুলো সত্যি আর সম্মানের সঙ্গে বলা যায়। তোমাকে পছন্দ করি—এটুকু জানাতে চেয়েছিলাম। তোমার উত্তর বা অনুভূতি যাই হোক, তোমার জন্য শুভকামনা রইল।"
+},
+{
+title:"Shara, তুমি কি আমার ভালো লাগার মানুষ হবে?",
+body:"আমি তোমাকে পছন্দ করি। তোমার সঙ্গে একটা সুন্দর গল্প শুরু করতে চাই। তুমি কি আমার সঙ্গে সেই গল্পের অংশ হতে চাও?",
+proposal:true
+}
+];
+
+let page=0;
+let musicOn=false;
+let audioCtx=null;
+let master=null;
+let oscillators=[];
+let started=false;
+
+const card=document.getElementById('card');
+
+function render(){
+ const c=chapters[page];
+ document.getElementById('counter').textContent=
+ String(page+1).padStart(2,'0')+"/13";
+ document.getElementById('progress').style.width=
+ ((page+1)/13*100)+"%";
+
+ let body=c.poem?
+ `<div class="poem">${c.body}</div>`:
+ `<p>${c.body}</p>`;
+
+ card.innerHTML=`
+ <h1>${c.title}</h1>
+ ${body}
+ ${c.sub?`<p>${c.sub}</p>`:''}
+ ${c.proposal?
+ `<div class="buttons">
+ <button class="heart" onclick="answer(true)">YES, I ACCEPT! ❤️</button>
+ <button class="secondary" onclick="answer(false)">NOT NOW 🤍</button>
+ </div>`:
+ `<div class="buttons">
+ ${page>0?'<button class="secondary" onclick="prev()">← Previous</button>':''}
+ <button onclick="next()">${c.button||'Next Chapter 💗'}</button>
+ </div>`}
+ <footer>A Little Story for Shara ❤️</footer>`;
+}
+
+function next(){
+ startMusic();
+ if(page<12){page++;render()}
+}
+function prev(){if(page>0){page--;render()}}
+
+function startMusic(){
+ if(started)return;
+ started=true;
+ try{
+ audioCtx=new(window.AudioContext||window.webkitAudioContext)();
+ master=audioCtx.createGain();
+ master.gain.value=.055;
+ master.connect(audioCtx.destination);
+
+ // Gentle original ambient chord sequence
+ const chords=[
+ [261.63,329.63,392],
+ [220,293.66,349.23],
+ [246.94,311.13,369.99],
+ [196,261.63,329.63]
+ ];
+ let chordIndex=0;
+
+ function playChord(){
+ if(!musicOn)return;
+ let chord=chords[chordIndex%chords.length];
+ chordIndex++;
+ chord.forEach(freq=>{
+ let osc=audioCtx.createOscillator();
+ let gain=audioCtx.createGain();
+ osc.type="sine";
+ osc.frequency.value=freq;
+ gain.gain.value=0;
+ osc.connect(gain);
+ gain.connect(master);
+ osc.start();
+ gain.gain.linearRampToValueAtTime(.18,audioCtx.currentTime+1);
+ gain.gain.linearRampToValueAtTime(0,audioCtx.currentTime+5);
+ osc.stop(audioCtx.currentTime+5.2);
+ });
+ setTimeout(playChord,5000);
+ }
+ musicOn=true;
+ playChord();
+ document.getElementById('musicBtn').textContent="♫ Music ON";
+ }catch(e){
+ console.log("Audio unavailable",e);
+ }
+}
+
+document.getElementById('musicBtn').onclick=()=>{
+ if(!started){
+ startMusic();
+ return;
+ }
+ if(musicOn){
+ musicOn=false;
+ if(master)master.gain.value=0;
+ document.getElementById('musicBtn').textContent="♫ Music OFF";
+ }else{
+ musicOn=true;
+ if(master)master.gain.value=.055;
+ document.getElementById('musicBtn').textContent="♫ Music ON";
+ }
+};
+
+function answer(yes){
+ let msg=yes?"Shara বলেছে: I ACCEPT! ❤️":
+ "Shara বলেছে: I NEED MORE TIME 🤍";
+
+ if(yes)confetti();
+ else flowers();
+
+ let title=yes?"তাহলে নতুন গল্প শুরু হোক! 💞":
+ "তোমার উত্তরকে সম্মান করি 🤍";
+
+ let extra=yes?
+ "তোমার এই উত্তরটা আমার দিনটা সুন্দর করে দিল। ধীরে ধীরে, দুজনের ভালো লাগা আর সম্মান নিয়ে এগোবো।":
+ "সৎভাবে উত্তর দেওয়ার জন্য ধন্যবাদ। কোনো চাপ নেই। ভালো থেকো, সবসময়।";
+
+ card.innerHTML=`
+ <h1>${title}</h1>
+ <p>${extra}</p>
+ <p>WhatsApp খুলবে, সেখানে Send চাপলে উত্তরটি পাঠানো যাবে।</p>
+ <div class="buttons">
+ <button onclick="whatsapp('${msg}')">WhatsApp-এ উত্তর পাঠাও</button>
+ <button class="secondary" onclick="page=0;render()">গল্প আবার পড়ো</button>
+ </div>
+ <footer>A Little Story for Shara ❤️</footer>`;
+}
+
+function whatsapp(msg){
+ window.open("https://wa.me/8801705174522?text="+
+ encodeURIComponent(msg),"_blank");
+}
+
+function confetti(){
+ for(let i=0;i<60;i++){
+ let e=document.createElement('span');
+ e.className='f';
+ e.textContent=['💗','💕','❤️','💖','🌸'][i%5];
+ e.style.left=Math.random()*100+'%';
+ e.style.animationDuration=(3+Math.random()*6)+'s';
+ document.getElementById('fx').appendChild(e);
+ setTimeout(()=>e.remove(),9000);
+ }
+}
+function flowers(){
+ for(let i=0;i<35;i++){
+ let e=document.createElement('span');
+ e.className='f';
+ e.textContent=['🌸','🌷','🤍','✿'][i%4];
+ e.style.left=Math.random()*100+'%';
+ e.style.animationDuration=(4+Math.random()*6)+'s';
+ document.getElementById('fx').appendChild(e);
+ setTimeout(()=>e.remove(),10000);
+ }
+}
+
+for(let i=0;i<20;i++){
+ let e=document.createElement('span');
+ e.className='f';
+ e.textContent=['♡','✦','🦋','🌸'][i%4];
+ e.style.left=Math.random()*100+'%';
+ e.style.animationDuration=(8+Math.random()*8)+'s';
+ e.style.animationDelay=Math.random()*-10+'s';
+ document.getElementById('fx').appendChild(e);
+}
+
+render();
+card.addEventListener('click',()=>startMusic());
+</script>
+</body>
+</html>
